@@ -1,0 +1,61 @@
+.board {
+  width: 800px;
+  height: 640px;
+}
+
+.board :disabled {
+  color: #000;
+}
+
+.board-body::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+.box {
+  float: left;
+}
+
+.rader.vertical {
+  margin-left: calc(40px * 2);
+}
+
+.rader.horizontal {
+  width: 40px;
+  margin-top: 40px;
+  float: left;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.box .cell.inner {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #888;
+  border-bottom: 1px solid #888;
+}
+
+.box .cell.outer {
+  border: 1px solid transparent;
+}
+
+.box :enabled.cell.inner {
+  background-color: #aaa;
+}
+
+.rader .cell {
+  background-color: #ccf;
+  border-top: 1px solid #eef;
+  border-left: 1px solid #eef;
+  border-right: 1px solid #aaf;
+  border-bottom: 1px solid #aaf;
+}
