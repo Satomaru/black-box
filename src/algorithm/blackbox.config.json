@@ -1,0 +1,24 @@
+{
+  "box": {
+    "size": 8,
+    "target": 4,
+    "symbol": {
+      "line_v": "┃",
+      "line_h": "━",
+      "line_u": "＊",
+      "line_r": "＊",
+      "line_d": "＊",
+      "line_l": "＊",
+      "line_ur": "┗",
+      "line_ul": "┛",
+      "line_dr": "┏",
+      "line_dl": "┓",
+      "line_cr": "╋",
+      "target": "◆",
+      "unknown": "?"
+    }
+  },
+  "rader": {
+    "max": 10
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Cell } from './cell.jsx';
 
 export class Box extends React.Component {
+
   constructor(props) {
     super(props);
   }
@@ -12,7 +13,7 @@ export class Box extends React.Component {
     const style = {};
 
     if (context && context.cells) {
-      style.width = `calc(40px * ${context.size + 2})`;
+      style.width = `calc(40px * ${context.size})`;
 
       for (const row of context.cells) {
         for (const cell of row) {

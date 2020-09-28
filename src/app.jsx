@@ -1,25 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as deepcopy from 'deepcopy';
+
 import './app.css';
-import config from './app.config.json';
+import { BlackBox } from './algorithm/blackbox';
 import { Board } from './component/board.jsx';
 
-export class BlackBox extends React.Component {
+class App extends React.Component {
+
   constructor(prop) {
     super(prop);
+
+    this.blackbox = new BlackBox();
 
     this.state = {
       board: {
         box: {
-          size: config.box.size,
-          cells: Array(config.box.size + 2).fill().map((row, y) =>
-            Array(config.box.size + 2).fill().map((col, x) => {
-              const inner = (x > 0 && x < config.box.size + 1 && y > 0 && y < config.box.size + 1);
+          size: BlackBox.size + 2,
+          cells: Array(BlackBox.size + 2).fill().map((row, y) =>
+            Array(BlackBox.size + 2).fill().map((cell, x) => {
+              const inner = BlackBox.isInner(x, y);
 
               return {
+                value: this.blackbox.getSymbol(x, y),
                 className: (inner) ? 'inner' : 'outer',
-                disabled: !inner,
+                disabled: true, //!inner
                 onClick: () => this.handleClickBox(x, y)
               };
             })
@@ -27,23 +32,23 @@ export class BlackBox extends React.Component {
         },
         rader: {
           top: {
-            cells: Array(config.box.size).fill().map((value, index) => ({
-              onClick: () => this.handleClickRaderTop(index)
+            cells: Array(BlackBox.size).fill().map((value, index) => ({
+              onClick: () => this.handleClickRader('top', index)
             }))
           },
           right: {
-            cells: Array(config.box.size).fill().map((value, index) => ({
-              onClick: () => this.handleClickRaderRight(index)
+            cells: Array(BlackBox.size).fill().map((value, index) => ({
+              onClick: () => this.handleClickRader('right', index)
             }))
           },
           bottom: {
-            cells: Array(config.box.size).fill().map((value, index) => ({
-              onClick: () => this.handleClickRaderBottom(index)
+            cells: Array(BlackBox.size).fill().map((value, index) => ({
+              onClick: () => this.handleClickRader('bottom', index)
             }))
           },
           left: {
-            cells: Array(config.box.size).fill().map((value, index) => ({
-              onClick: () => this.handleClickRaderLeft(index)
+            cells: Array(BlackBox.size).fill().map((value, index) => ({
+              onClick: () => this.handleClickRader('left', index)
             }))
           }
         }
@@ -59,40 +64,38 @@ export class BlackBox extends React.Component {
     );
   }
 
+  handleClickRader(raderName, raderIndex) {
+    if (!this.blackbox.isRaderEnable()) {
+      return;
+    }
+
+    const state = deepcopy(this.state);
+    const result = this.blackbox.shootRader(raderName, raderIndex);
+
+    const updateCell = (name, index) => {
+      const cell = state.board.rader[name].cells[index];
+      cell.value = this.blackbox.raderIndex;
+      cell.disabled = true;
+    };
+
+    updateCell(raderName, raderIndex);
+
+    if (result) {
+      updateCell(result.name, result.index);
+    }
+
+    state.board.box.cells.forEach((row, y) => row.forEach((cell, x) =>
+      cell.value = this.blackbox.getSymbol(x, y)));
+
+    this.setState(state);
+  }
+
   handleClickBox(x, y) {
-    const state = deepcopy(this.state);
-    const cell = state.board.box.cells[y][x];
-    cell.value = (cell.value) ? null : '✔︎';
-    this.setState(state);
-  }
-
-  handleClickRaderTop(index) {
-    const state = deepcopy(this.state);
-    const cell = state.board.rader.top.cells[index];
-    cell.value = (cell.value) ? null : '1';
-    this.setState(state);
-  }
-
-  handleClickRaderRight(index) {
-    const state = deepcopy(this.state);
-    const cell = state.board.rader.right.cells[index];
-    cell.value = (cell.value) ? null : '1';
-    this.setState(state);
-  }
-
-  handleClickRaderBottom(index) {
-    const state = deepcopy(this.state);
-    const cell = state.board.rader.bottom.cells[index];
-    cell.value = (cell.value) ? null : '1';
-    this.setState(state);
-  }
-
-  handleClickRaderLeft(index) {
-    const state = deepcopy(this.state);
-    const cell = state.board.rader.left.cells[index];
-    cell.value = (cell.value) ? null : '1';
-    this.setState(state);
+//    const state = deepcopy(this.state);
+//    const cell = state.board.box.cells[y][x];
+//    cell.value = (cell.value) ? null : '✔︎';
+//    this.setState(state);
   }
 }
 
-ReactDOM.render(<BlackBox/>, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));

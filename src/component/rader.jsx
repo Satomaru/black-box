@@ -2,6 +2,7 @@ import React from 'react';
 import { Cell } from './cell.jsx';
 
 export class Rader extends React.Component {
+
   constructor(props, className) {
     super(props);
     this.className = className;
@@ -22,12 +23,14 @@ export class Rader extends React.Component {
 }
 
 export class RaderV extends Rader {
+
   constructor(props) {
     super(props, 'rader vertical');
   }
 }
 
 export class RaderH extends Rader {
+
   constructor(props) {
     super(props, 'rader horizontal');
   }

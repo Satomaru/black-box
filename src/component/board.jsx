@@ -3,6 +3,7 @@ import { Box } from './box.jsx';
 import { RaderV, RaderH } from './rader.jsx';
 
 export class Board extends React.Component {
+
   constructor(props) {
     super(props);
   }
