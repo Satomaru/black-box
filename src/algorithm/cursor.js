@@ -16,10 +16,6 @@ export class Cursor {
     return 3;
   }
 
-  constructor(boxSize) {
-    this.boxSize = boxSize;
-  }
-
   readyOnTop(index) {
     this.x = index;
     this.y = -1;
@@ -27,14 +23,14 @@ export class Cursor {
   }
 
   readyOnRight(index) {
-    this.x = this.boxSize + 2;
+    this.x = 10;
     this.y = index;
     this.dir = Cursor.GO_LEFT;
   }
 
   readyOnBottom(index) {
     this.x = index;
-    this.y = this.boxSize + 2;
+    this.y = 10;
     this.dir = Cursor.GO_UP;
   }
 

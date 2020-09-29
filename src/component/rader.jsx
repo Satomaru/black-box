@@ -3,35 +3,23 @@ import { Cell } from './cell.jsx';
 
 export class Rader extends React.Component {
 
-  constructor(props, className) {
-    super(props);
-    this.className = className;
-  }
-
   render() {
     const context = this.props.context;
+    let className = 'rader';
     const cells = [];
 
-    if (context && context.cells) {
-      for (const cell of context.cells) {
-        cells.push(<Cell context={cell}/>);
-      }
+    if (context.className) {
+      className += ' ' + context.className;
     }
 
-    return <div className={this.className}>{cells}</div>;
-  }
-}
+    for (const cell of context.cells) {
+      cells.push(<Cell context={cell}/>);
+    }
 
-export class RaderV extends Rader {
-
-  constructor(props) {
-    super(props, 'rader vertical');
-  }
-}
-
-export class RaderH extends Rader {
-
-  constructor(props) {
-    super(props, 'rader horizontal');
+    return (
+      <div className={className}>
+        {cells}
+      </div>
+    );
   }
 }

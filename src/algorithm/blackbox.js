@@ -5,16 +5,12 @@ const BOX_TARGET = 16;
 
 export class BlackBox {
 
-  static get size() {
-    return config.box.size;
-  }
-
   static isInBox(x, y) {
-    return (x >= 0 && x <= config.box.size + 1) && (y >= 0 && y <= config.box.size + 1);
+    return (x >= 0 && x <= 9) && (y >= 0 && y <= 9);
   }
 
   static isInner(x, y) {
-    return (x >= 1 && x <= config.box.size) && (y >= 1 && y <= config.box.size);
+    return (x > 0 && x < 9) && (y > 0 && y < 9);
   }
 
   constructor() {
@@ -27,12 +23,8 @@ export class BlackBox {
 
   init() {        
     this.raderCount = 0;
-
-    this.box =
-      Array(config.box.size + 2).fill().map(() =>
-        Array(config.box.size + 2).fill().map(() => 0));
-
-    const random = () => Math.floor(Math.random() * config.box.size) + 1;
+    this.box = Array(10).fill().map(() => Array(10).fill().map(() => 0));
+    const random = () => Math.floor(Math.random() * 8) + 1;
 
     for (let i = 0; i < config.box.target; i++) {
       let x;
@@ -57,7 +49,7 @@ export class BlackBox {
     }
 
     ++this.raderCount;
-    const cursor = new Cursor(config.box.size);
+    const cursor = new Cursor();
     const drawShot = (x, y, shot) => this.addValue(x, y, shot);
     const isTarget = (x, y) => this.getValue(x, y) === BOX_TARGET;
 

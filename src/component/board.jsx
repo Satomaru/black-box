@@ -1,25 +1,21 @@
 import React from 'react';
 import { Box } from './box.jsx';
-import { RaderV, RaderH } from './rader.jsx';
+import { Rader } from './rader.jsx';
 
 export class Board extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const context = this.props.context;
 
     return (
       <div className="board">
-        <RaderV context={context.rader.top}/>
+        <Rader context={context.rader.top}/>
         <div className="board-body">
-          <RaderH context={context.rader.left}/>
+          <Rader context={context.rader.left}/>
           <Box context={context.box}/>
-          <RaderH context={context.rader.right}/>
+          <Rader context={context.rader.right}/>
         </div>
-        <RaderV context={context.rader.bottom}/>
+        <Rader context={context.rader.bottom}/>
       </div>
     );
   }

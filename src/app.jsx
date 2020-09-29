@@ -16,39 +16,46 @@ class App extends React.Component {
     this.state = {
       board: {
         box: {
-          size: BlackBox.size + 2,
-          cells: Array(BlackBox.size + 2).fill().map((row, y) =>
-            Array(BlackBox.size + 2).fill().map((cell, x) => {
-              const inner = BlackBox.isInner(x, y);
-
-              return {
-                value: this.blackbox.getSymbol(x, y),
-                className: (inner) ? 'inner' : 'outer',
-                disabled: true, //!inner
-                onClick: () => this.handleClickBox(x, y)
-              };
+          className: 'open',
+          cells: Array(10).fill().map((row, y) =>
+            Array(10).fill().map((cell, x) => {
+              if (BlackBox.isInner(x, y)) {
+                return {
+                  value: this.blackbox.getSymbol(x, y),
+                  className: 'inner',
+                  onClick: () => this.handleClickBox(x, y)
+                };
+              } else {
+                return {
+                  className: 'outer'
+                };
+              }
             })
           )
         },
         rader: {
           top: {
-            cells: Array(BlackBox.size).fill().map((value, index) => ({
-              onClick: () => this.handleClickRader('top', index)
+            className: 'vertical',
+            cells: Array(8).fill().map((value, index) => ({
+             onClick: () => this.handleClickRader('top', index)
             }))
           },
           right: {
-            cells: Array(BlackBox.size).fill().map((value, index) => ({
-              onClick: () => this.handleClickRader('right', index)
+            className: 'horizontal',
+            cells: Array(8).fill().map((value, index) => ({
+             onClick: () => this.handleClickRader('right', index)
             }))
           },
           bottom: {
-            cells: Array(BlackBox.size).fill().map((value, index) => ({
-              onClick: () => this.handleClickRader('bottom', index)
+            className: 'vertical',
+            cells: Array(8).fill().map((value, index) => ({
+             onClick: () => this.handleClickRader('bottom', index)
             }))
           },
           left: {
-            cells: Array(BlackBox.size).fill().map((value, index) => ({
-              onClick: () => this.handleClickRader('left', index)
+            className: 'horizontal',
+            cells: Array(8).fill().map((value, index) => ({
+             onClick: () => this.handleClickRader('left', index)
             }))
           }
         }

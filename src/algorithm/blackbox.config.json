@@ -1,6 +1,5 @@
 {
   "box": {
-    "size": 8,
     "target": 4,
     "symbol": {
       "line_v": "┃",
