@@ -1,0 +1,22 @@
+{
+  "box": {
+    "size": 8
+  },
+  "cell": {
+    "value": {
+      "line_u": 1,
+      "line_r": 2,
+      "line_ur": 3,
+      "line_d": 4,
+      "line_v": 5,
+      "line_dr": 6,
+      "line_l": 8,
+      "line_ul": 9,
+      "line_h": 10,
+      "line_dl": 12,
+      "line_cr": 15,
+      "target": 16,
+      "conjecture": 32
+    }
+  }
+}

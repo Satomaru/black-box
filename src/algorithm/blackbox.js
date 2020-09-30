@@ -1,16 +1,30 @@
-import config from './blackbox.config.json';
+import config from './config.json';
+import constant from './constant.json';
+import { utils } from '../utils';
 import { Cursor } from './cursor';
-
-const BOX_TARGET = 16;
 
 export class BlackBox {
 
-  static isInBox(x, y) {
-    return (x >= 0 && x <= 9) && (y >= 0 && y <= 9);
+  static get SIZE() {
+    return constant.box.size;
   }
 
-  static isInner(x, y) {
-    return (x > 0 && x < 9) && (y > 0 && y < 9);
+  static get REGION() {
+    return constant.box.size + 2;
+  }
+
+  static isRegion(x, y) {
+    return (
+      (x >= 0 && x < BlackBox.REGION) &&
+      (y >= 0 && y < BlackBox.REGION)
+    );
+  }
+
+  static isInBox(x, y) {
+    return (
+      (x >= 1 && x <= BlackBox.SIZE) &&
+      (y >= 1 && y <= BlackBox.SIZE)
+    );
   }
 
   constructor() {
@@ -21,21 +35,20 @@ export class BlackBox {
     return this.raderCount;
   }
 
-  init() {        
+  init() {
+    this.box = utils.allocSquare(BlackBox.REGION).make(0);
     this.raderCount = 0;
-    this.box = Array(10).fill().map(() => Array(10).fill().map(() => 0));
-    const random = () => Math.floor(Math.random() * 8) + 1;
 
     for (let i = 0; i < config.box.target; i++) {
       let x;
       let y;
 
       do {
-        x = random();
-        y = random();
+        x = utils.random(1, BlackBox.SIZE);
+        y = utils.random(1, BlackBox.SIZE);
       } while (this.box[y][x] !== 0);
 
-      this.box[y][x] = BOX_TARGET;
+      this.box[y][x] = constant.cell.value.target;
     }
   }
 
@@ -49,15 +62,16 @@ export class BlackBox {
     }
 
     ++this.raderCount;
+
     const cursor = new Cursor();
     const drawShot = (x, y, shot) => this.addValue(x, y, shot);
-    const isTarget = (x, y) => this.getValue(x, y) === BOX_TARGET;
+    const isTarget = (x, y) => this.getValue(x, y) === constant.cell.value.target;
 
     const moveWhileDraw = () => {
       cursor.drawShotOut(drawShot);
       cursor.move();
       cursor.drawShotIn(drawShot);
-      return BlackBox.isInBox(cursor.x, cursor.y);
+      return BlackBox.isRegion(cursor.x, cursor.y);
     };
 
     switch (raderName) {
@@ -104,25 +118,25 @@ export class BlackBox {
 
   getSymbol(x, y) {
     switch (this.getValue(x, y)) {
-      case 0b00000: return '';
-      case 0b00001: return config.box.symbol.line_u;
-      case 0b00010: return config.box.symbol.line_r;
-      case 0b00011: return config.box.symbol.line_ur;
-      case 0b00100: return config.box.symbol.line_d;
-      case 0b00101: return config.box.symbol.line_v;
-      case 0b00110: return config.box.symbol.line_dr;
-      case 0b01000: return config.box.symbol.line_l;
-      case 0b01001: return config.box.symbol.line_ul;
-      case 0b01010: return config.box.symbol.line_h;
-      case 0b01100: return config.box.symbol.line_dl;
-      case 0b01111: return config.box.symbol.line_cr;
-      case 0b10000: return config.box.symbol.target;
-      default:      return config.box.symbol.unknown;
+      case constant.cell.value.line_u:     return config.cell.symbol.line_u;
+      case constant.cell.value.line_r:     return config.cell.symbol.line_r;
+      case constant.cell.value.line_ur:    return config.cell.symbol.line_ur;
+      case constant.cell.value.line_d:     return config.cell.symbol.line_d;
+      case constant.cell.value.line_v:     return config.cell.symbol.line_v;
+      case constant.cell.value.line_dr:    return config.cell.symbol.line_dr;
+      case constant.cell.value.line_l:     return config.cell.symbol.line_l;
+      case constant.cell.value.line_ul:    return config.cell.symbol.line_ul;
+      case constant.cell.value.line_h:     return config.cell.symbol.line_h;
+      case constant.cell.value.line_dl:    return config.cell.symbol.line_dl;
+      case constant.cell.value.line_cr:    return config.cell.symbol.line_cr;
+      case constant.cell.value.target:     return config.cell.symbol.target;
+      case constant.cell.value.conjecture: return config.cell.symbol.conjecture;
+      default: return '';
     }
   }
 
   getValue(x, y) {
-    if (BlackBox.isInBox(x, y)) {
+    if (BlackBox.isRegion(x, y)) {
       return this.box[y][x];
     } else {
       return 0;
@@ -130,7 +144,7 @@ export class BlackBox {
   }
 
   addValue(x, y, value) {
-    if (BlackBox.isInBox(x, y)) {
+    if (BlackBox.isRegion(x, y)) {
       this.box[y][x] += value;
     }
   }

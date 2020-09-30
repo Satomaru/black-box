@@ -1,6 +1,11 @@
 {
   "box": {
-    "target": 4,
+    "target": 4
+  },
+  "rader": {
+    "max": 10
+  },
+  "cell": {
     "symbol": {
       "line_v": "┃",
       "line_h": "━",
@@ -14,10 +19,7 @@
       "line_dl": "┓",
       "line_cr": "╋",
       "target": "◆",
-      "unknown": "?"
+      "conjecture": "✔︎"
     }
-  },
-  "rader": {
-    "max": 10
   }
 }

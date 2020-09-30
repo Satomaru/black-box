@@ -19,7 +19,7 @@ class App extends React.Component {
           className: 'open',
           cells: Array(10).fill().map((row, y) =>
             Array(10).fill().map((cell, x) => {
-              if (BlackBox.isInner(x, y)) {
+              if (BlackBox.isInBox(x, y)) {
                 return {
                   value: this.blackbox.getSymbol(x, y),
                   className: 'inner',
