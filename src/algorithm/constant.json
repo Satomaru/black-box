@@ -1,20 +1,26 @@
 {
   "box": {
-    "size": 8
+    "size": 8,
+    "targets": 4
   },
+
+  "rader": {
+    "limit": 10
+  },
+
   "cell": {
     "value": {
-      "line_u": 1,
-      "line_r": 2,
-      "line_ur": 3,
-      "line_d": 4,
-      "line_v": 5,
-      "line_dr": 6,
-      "line_l": 8,
-      "line_ul": 9,
-      "line_h": 10,
-      "line_dl": 12,
-      "line_cr": 15,
+      "rader_u": 1,
+      "rader_r": 2,
+      "rader_ur": 3,
+      "rader_d": 4,
+      "rader_v": 5,
+      "rader_dr": 6,
+      "rader_l": 8,
+      "rader_ul": 9,
+      "rader_h": 10,
+      "rader_dl": 12,
+      "rader_cr": 15,
       "target": 16,
       "conjecture": 32
     }

@@ -44,14 +44,14 @@
 }
 
 .box .cell.inner {
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #888;
-  border-bottom: 1px solid #888;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
 }
 
 .box.closed .cell.inner {
-  background-color: #aaa;
+  background-color: #bbb;
 }
 
 .box.opened .cell.inner {
@@ -59,11 +59,15 @@
 }
 
 .box.opened .cell.inner.conjectured {
-  background-color: #f84;
+  background-color: #9f9;
 }
 
 .box .cell.outer {
   border: 1px solid transparent;
+}
+
+.box .cell .rader {
+  color: #f00;
 }
 
 .rader .cell {

@@ -9,15 +9,15 @@ export class Board extends React.Component {
 
     return (
       <div className="board">
-        <Rader context={context.rader.top}/>
+        <Rader context={context.raders.top}/>
         <div className="board-body">
-          <Rader context={context.rader.left}/>
+          <Rader context={context.raders.left}/>
           <Box context={context.box}/>
-          <Rader context={context.rader.right}/>
+          <Rader context={context.raders.right}/>
         </div>
-        <Rader context={context.rader.bottom}/>
+        <Rader context={context.raders.bottom}/>
         <div className="footer">
-          <button onClick={context.button.open.onClick}>Open</button>
+          <button onClick={context.buttons.open.onClick}>Open</button>
         </div>
       </div>
     );

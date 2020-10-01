@@ -1,7 +1,7 @@
 export const utils = {
 
   array: (target) => ({
-    loop2d: (callback) => target.forEach((row, y) =>
+    forEach2d: (callback) => target.forEach((row, y) =>
       row.forEach((cell, x) => callback(x, y, cell))
     )
   }),

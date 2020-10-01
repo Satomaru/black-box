@@ -12,13 +12,13 @@ class App extends React.Component {
   constructor(prop) {
     super(prop);
     this.blackbox = new BlackBox();
-    this.init();
+    this.state = this.createNewState();
   }
 
-  init() {
+  createNewState() {
     this.blackbox.init();
 
-    this.state = {
+    return {
       board: {
         box: {
           className: 'closed',
@@ -36,7 +36,7 @@ class App extends React.Component {
             }
           })
         },
-        rader: {
+        raders: {
           top: {
             className: 'vertical',
             cells: utils.line(BlackBox.SIZE).make((index) => ({
@@ -62,7 +62,7 @@ class App extends React.Component {
             }))
           }
         },
-        button: {
+        buttons: {
           open: {
             onClick: () => this.handleClickOpen()
           }
@@ -89,7 +89,7 @@ class App extends React.Component {
     const state = deepcopy(this.state);
 
     const updateCell = (name, index) => {
-      const cell = state.board.rader[name].cells[index];
+      const cell = state.board.raders[name].cells[index];
       cell.value = this.blackbox.raderIndex;
       cell.disabled = true;
     };
@@ -100,7 +100,7 @@ class App extends React.Component {
       updateCell(result.name, result.index);
     }
 
-    utils.array(state.board.box.cells).loop2d((x, y, cell) =>
+    utils.array(state.board.box.cells).forEach2d((x, y, cell) =>
       cell.value = this.blackbox.getSymbol(x, y)
     );
 
@@ -125,7 +125,7 @@ class App extends React.Component {
     const state = deepcopy(this.state);
     state.board.box.className = 'opened';
 
-    utils.array(state.board.box.cells).loop2d((x, y, cell) => {
+    utils.array(state.board.box.cells).forEach2d((x, y, cell) => {
       if (BlackBox.isInBox(x, y) && this.blackbox.isConjectured(x, y)) {
         cell.className = "inner conjectured";
       }

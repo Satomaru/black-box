@@ -1,4 +1,3 @@
-import config from './config.json';
 import constant from './constant.json';
 import { Cursor } from './cursor';
 import { utils } from '../utils';
@@ -14,11 +13,11 @@ export class BlackBox {
   }
 
   static get TARGETS() {
-    return config.box.targets;
+    return constant.box.targets;
   }
 
   static get RADERS() {
-    return config.rader.limit;
+    return constant.rader.limit;
   }
 
   static isRegion(x, y) {
@@ -153,23 +152,17 @@ export class BlackBox {
 
   getSymbol(x, y) {
     if (this.opened || !BlackBox.isInBox(x, y)) {
-      switch (this.getValue(x, y)) {
-        case constant.cell.value.line_u:     return config.cell.symbol.line_u;
-        case constant.cell.value.line_r:     return config.cell.symbol.line_r;
-        case constant.cell.value.line_ur:    return config.cell.symbol.line_ur;
-        case constant.cell.value.line_d:     return config.cell.symbol.line_d;
-        case constant.cell.value.line_v:     return config.cell.symbol.line_v;
-        case constant.cell.value.line_dr:    return config.cell.symbol.line_dr;
-        case constant.cell.value.line_l:     return config.cell.symbol.line_l;
-        case constant.cell.value.line_ul:    return config.cell.symbol.line_ul;
-        case constant.cell.value.line_h:     return config.cell.symbol.line_h;
-        case constant.cell.value.line_dl:    return config.cell.symbol.line_dl;
-        case constant.cell.value.line_cr:    return config.cell.symbol.line_cr;
-        case constant.cell.value.target:     return config.cell.symbol.target;
-        default: return '';
+      const value = this.getValue(x, y);
+
+      for (const symbol in constant.cell.value) {
+        if (value === constant.cell.value[symbol]) {
+          return symbol;
+        }
       }
+
+      return null;
     } else {
-      return this.isConjectured(x, y) ? config.cell.symbol.conjecture : '';
+      return this.isConjectured(x, y) ? 'conjecture' : null;
     }
   }
 
@@ -183,7 +176,7 @@ export class BlackBox {
 
   addValue(x, y, value) {
     if (BlackBox.isRegion(x, y)) {
-      this.box[y][x] += value;
+      this.box[y][x] |= value;
     }
   }
 

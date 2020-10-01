@@ -1,5 +1,22 @@
 import React from 'react';
-import { Cell } from './cell.jsx';
+
+class Cell extends React.Component {
+
+  render() {
+    const context = this.props.context;
+    let onClick;
+
+    if (!context.disabled) {
+      onClick = context.onClick;
+    }
+
+    return (
+      <div className="cell" onClick={onClick}>
+        {context.value}
+      </div>
+    );
+  }
+}
 
 export class Rader extends React.Component {
 
