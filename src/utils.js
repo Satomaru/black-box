@@ -1,48 +1,46 @@
 export const utils = {
 
-  allocLine: (length) => {
-    return {
-      make: (valueOrFunction) => {
-        const line = Array(length);
+  array: (target) => ({
+    loop2d: (callback) => target.forEach((row, y) =>
+      row.forEach((cell, x) => callback(x, y, cell))
+    )
+  }),
+
+  line: (length) => ({
+    make: (valueOrFunction) => {
+      const line = Array(length);
+
+      if (typeof valueOrFunction === 'function') {
+        return line.fill().map((value, index) => valueOrFunction(index));
+      }
+
+      if (valueOrFunction !== undefined) {
+        return line.fill(valueOrFunction);
+      } else {
+        return line.fill();
+      }
+    }
+  }),
+
+  rect: (width, height) => ({
+    make: (valueOrFunction) => {
+      return utils.line(height).make((y) => {
+        let cellSupplier = valueOrFunction;
 
         if (typeof valueOrFunction === 'function') {
-          return line.fill().map((value, index) => valueOrFunction(index));
+          cellSupplier = (x) => valueOrFunction(x, y);
         }
 
-        if (valueOrFunction !== undefined) {
-          return line.fill(valueOrFunction);
-        } else {
-          return line.fill();
-        }
-      }
-    };
-  },
+        return utils.line(width).make(cellSupplier);
+      });
+    }
+  }),
 
-  allocRect: (width, height) => {
-    return {
-      make: (valueOrFunction) => {
-        return Array(height).fill().map((row, y) => {
-          let cellSupplier = valueOrFunction;
+  square: (size) => ({
+    make: (valueOrFunction) => {
+      return utils.rect(size, size).make(valueOrFunction);
+    }
+  }),
 
-          if (typeof valueOrFunction === 'function') {
-            cellSupplier = (x) => valueOrFunction(x, y);
-          }
-
-          return utils.allocLine(width).make(cellSupplier);
-        });
-      }
-    };
-  },
-
-  allocSquare: (size) => {
-    return {
-      make: (valueOrFunction) => {
-        return utils.allocRect(size, size).make(valueOrFunction);
-      }
-    };
-  },
-
-  random: (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  random: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 };

@@ -1,9 +1,9 @@
 {
   "box": {
-    "target": 4
+    "targets": 4
   },
   "rader": {
-    "max": 10
+    "limit": 10
   },
   "cell": {
     "symbol": {

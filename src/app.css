@@ -50,12 +50,16 @@
   border-bottom: 1px solid #888;
 }
 
-.box.close .cell.inner {
+.box.closed .cell.inner {
   background-color: #aaa;
 }
 
-.box.open .cell.inner {
+.box.opened .cell.inner {
   background-color: #fff;
+}
+
+.box.opened .cell.inner.conjectured {
+  background-color: #f84;
 }
 
 .box .cell.outer {
@@ -68,4 +72,8 @@
   border-left: 1px solid #eef;
   border-right: 1px solid #aaf;
   border-bottom: 1px solid #aaf;
+}
+
+.footer {
+  margin-top: 16px;
 }
