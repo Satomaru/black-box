@@ -23,7 +23,7 @@ class App extends React.Component {
         box: {
           className: 'closed',
           cells: utils.square(BlackBox.REGION).make((x, y) => {
-           if (BlackBox.isInBox(x, y)) {
+            if (BlackBox.isInBox(x, y)) {
               return {
                 value: this.blackbox.getSymbol(x, y),
                 className: 'inner',
@@ -66,6 +66,10 @@ class App extends React.Component {
           open: {
             onClick: () => this.handleClickOpen()
           }
+        },
+        info: {
+          targets: BlackBox.TARGETS,
+          raders: BlackBox.RADERS,
         }
       }
     };

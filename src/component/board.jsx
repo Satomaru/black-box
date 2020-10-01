@@ -19,7 +19,11 @@ export class Board extends React.Component {
         <div className="footer">
           <button onClick={context.buttons.open.onClick}>Open</button>
         </div>
-      </div>
+        <div className="footer">
+          箱の中にはターゲットが {context.info.targets} 個あります。<br/>
+          レーダーは {context.info.raders} 回照射できます。<br/>
+       </div>
+     </div>
     );
   }
 }
