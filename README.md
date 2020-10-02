@@ -20,7 +20,7 @@ __BlackBox__ という名前のパズルゲームです。iOSアプリ play.js �
 
 <img src="https://github.com/Satomaru/black-box/blob/master/misc/tutorial-02.png" width="480px">
 
-まず、左の一番上から照射しました（1）。
+まず、左の一番上をタップしてレーダーを照射しました（1）。
 すると、上の一番左に貫通しました。
 箱を貫通した場合、貫通した場所に、照射した番号と同じ番号が記載されます。
 
@@ -95,4 +95,5 @@ __BlackBox__ という名前のパズルゲームです。iOSアプリ play.js �
 <img src="https://github.com/Satomaru/black-box/blob/master/misc/tutorial-12.png" width="480px">
 
 見事、ターゲットを4つとも当てることができました。
-3番の照射が、中々いい感じに意地悪でしたねw
+3番の照射が、中々いい感じに意地悪でしたね。
+もう一度遊ぶ時は、ページをリロードしてください。
