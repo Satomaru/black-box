@@ -7,6 +7,12 @@ __BlackBox__ という名前のパズルゲームです。iOSアプリ
 [play.js](https://apps.apple.com/jp/app/play-js-javascript-ide/id1423330822)
 上で動作します。
 
+clone時の注意
+------------
+
+このプロジェクトをcloneする時は、
+New ProjectダイアログのTypeに `Node.js + React.js (Template)` を指定してください。
+
 遊び方
 -----
 
