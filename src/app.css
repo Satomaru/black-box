@@ -1,3 +1,7 @@
+:root {
+  --cell-size: 34px;
+}
+
 .board {
   width: 800px;
   height: 640px;
@@ -10,35 +14,35 @@
 }
 
 .box {
-  width: 400px;
-  height: 400px;
+  width: calc(var(--cell-size) * 10);
+  height: calc(var(--cell-size) * 10);
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   float: left;
 }
 
 .rader.vertical {
-  width: 320px;
-  height: 40px;
-  margin-left: 80px;
+  width: calc(var(--cell-size) * 8);
+  height: var(--cell-size);
+  margin-left: calc(var(--cell-size) * 2);
   display: grid;
   grid-template-columns: repeat(8, 1fr);
 }
 
 .rader.horizontal {
-  width: 40px;
-  height: 320px;
-  margin-top: 40px;
+  width: var(--cell-size);
+  height: calc(var(--cell-size) * 8);
+  margin-top: var(--cell-size);
   float: left;
 }
 
 .cell {
   box-sizing: border-box;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
-  line-height: 38px;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  font-size: calc(var(--cell-size) - 10px);
+  line-height: calc(var(--cell-size) - 2);
   text-align: center;
   vertical-align: middle;
 }
@@ -51,7 +55,7 @@
 }
 
 .box.closed .cell.inner {
-  background-color: #bbb;
+  background-color: #444;
 }
 
 .box.opened .cell.inner {
@@ -59,7 +63,7 @@
 }
 
 .box.opened .cell.inner.conjectured {
-  background-color: #9f9;
+  background-color: #0a0;
 }
 
 .box .cell.outer {

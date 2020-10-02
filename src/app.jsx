@@ -25,7 +25,6 @@ class App extends React.Component {
           cells: utils.square(BlackBox.REGION).make((x, y) => {
             if (BlackBox.isInBox(x, y)) {
               return {
-                value: this.blackbox.getSymbol(x, y),
                 className: 'inner',
                 onClick: () => this.handleClickBox(x, y)
               };
