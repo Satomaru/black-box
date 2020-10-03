@@ -42,10 +42,16 @@ export class BlackBox {
     return BlackBox.RADERS - this.raderCount;
   }
 
+  get score() {
+    const loss = (this.raderCount > BlackBox.TARGETS) ? this.raderCount - BlackBox.TARGETS : 0;
+    return Math.floor((100 - loss * 10) * this.hits / BlackBox.TARGETS);
+  }
+
   init() {
-    this.conjecture = [];
+    this.conjectures = [];
     this.box = utils.square(BlackBox.REGION).make(0);
     this.raderCount = 0;
+    this.hits = 0;
     this.opened = false;
 
     for (let i = 0; i < BlackBox.TARGETS; i++) {
@@ -62,7 +68,7 @@ export class BlackBox {
   }
 
   shootRader(raderName, raderIndex) {
-    if (!this.isRaderEnable()) {
+    if (!this.isRaderEnabled()) {
       return null;
     }
 
@@ -126,25 +132,29 @@ export class BlackBox {
       return false;
     }
 
-    const index = this.conjecture.findIndex(value => value.x === x && value.y === y);
+    const index = this.conjectures.findIndex(value => value.x === x && value.y === y);
 
     if (index === -1) {
-      if (this.conjecture.length >= BlackBox.TARGETS) {
+      if (this.conjectures.length >= BlackBox.TARGETS) {
         return false;
       }
 
-      this.conjecture.push({ x: x, y: y });
+      this.conjectures.push({ x: x, y: y });
     } else {
-      this.conjecture.splice(index, 1);
+      this.conjectures.splice(index, 1);
     }
 
     return true;
   }
 
   open() {
-    if (this.opened) {
+    if (this.opened || this.conjectures.length !== BlackBox.TARGETS) {
       return false;
     }
+
+    this.hits = this.conjectures
+      .map(value => this.box[value.y][value.x] === constant.cell.value.target)
+      .reduce((result, current) => result += current ? 1 : 0);
 
     this.opened = true;
     return true;
@@ -180,12 +190,12 @@ export class BlackBox {
     }
   }
 
-  isRaderEnable() {
+  isRaderEnabled() {
     return !this.opened && this.raderCount < BlackBox.RADERS;
   }
 
   isConjectured(x, y) {
-    return this.conjecture.some(value => value.x === x && value.y === y);
+    return this.conjectures.some(value => value.x === x && value.y === y);
   }
 
   isOpened() {

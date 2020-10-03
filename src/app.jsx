@@ -69,6 +69,8 @@ class App extends React.Component {
         info: {
           targets: BlackBox.TARGETS,
           raders: BlackBox.RADERS,
+          gameOver: false,
+          score: 0
         }
       }
     };
@@ -127,6 +129,8 @@ class App extends React.Component {
 
     const state = deepcopy(this.state);
     state.board.box.className = 'opened';
+    state.board.info.gameOver = true;
+    state.board.info.score = this.blackbox.score;
 
     utils.array(state.board.box.cells).forEach2d((x, y, cell) => {
       if (BlackBox.isInBox(x, y) && this.blackbox.isConjectured(x, y)) {

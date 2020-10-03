@@ -6,6 +6,11 @@ export class Board extends React.Component {
 
   render() {
     const context = this.props.context;
+    let result;
+
+    if (context.info.gameOver) {
+      result = `ゲーム終了。スコアは ${context.info.score} 点です。`;
+    }
 
     return (
       <div className="board">
@@ -22,6 +27,7 @@ export class Board extends React.Component {
         <div className="footer">
           箱の中にはターゲットが {context.info.targets} 個あります。<br/>
           レーダーは {context.info.raders} 回照射できます。<br/>
+          {result}<br/>
        </div>
      </div>
     );
