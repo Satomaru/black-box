@@ -78,7 +78,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="app">
+        <h1>Black Box</h1>
         <Board context={this.state.board}/>
       </div>
     );

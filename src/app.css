@@ -2,13 +2,18 @@
   --cell-size: 34px;
 }
 
-.board {
+.app {
   width: 800px;
   height: 640px;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+h1 {
+  margin: 0 0 4px 0;
+  font-size: 20pt;
 }
 
 .desk-body::after {
@@ -91,5 +96,17 @@
 }
 
 .footer {
-  margin-top: 16px;
+  margin-top: 8px;
+  font-size: 11pt;
+  line-height: 16pt;
+}
+
+.footer .score {
+  font-size: 15pt;
+  font-weight: bold;
+  color: #f00;
+}
+
+.footer button {
+  font-size: 10pt;
 }
