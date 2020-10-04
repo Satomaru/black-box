@@ -31,7 +31,7 @@ export class Board extends React.Component {
           上下左右の領域をタップすると、{context.info.raders} 回までレーダーを照射できます。<br/>
           マウスを使用している場合、右クリックで色が変わります。<br/>
           ゲーム上の意味はありませんが、考察に役立ててください。<br/>
-          open ボタンをタップすると、答え合わせを行います。<br/>
+          Open ボタンをタップすると、答え合わせを行います。<br/>
         </div>
       </div>
     );
