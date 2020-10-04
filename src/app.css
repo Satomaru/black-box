@@ -5,9 +5,13 @@
 .board {
   width: 800px;
   height: 640px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.board-body::after {
+.desk-body::after {
   clear: both;
   content: "";
   display: block;
@@ -54,8 +58,12 @@
   border-bottom: 1px solid #999;
 }
 
-.box.closed .cell.inner {
-  background-color: #444;
+.box.closed .cell.inner.mark0 {
+  background-color: #668;
+}
+
+.box.closed .cell.inner.mark1 {
+  background-color: #112;
 }
 
 .box.opened .cell.inner {
@@ -70,8 +78,8 @@
   border: 1px solid transparent;
 }
 
-.box .cell .rader {
-  color: #f00;
+.box .cell img {
+  pointer-events: none;
 }
 
 .rader .cell {

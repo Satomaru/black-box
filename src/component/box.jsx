@@ -15,12 +15,18 @@ import conjecture from '../../public/conjecture.png';
 
 class Cell extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.paintMark = -1;
+    this.state = { mark: 0 };
+  }
+
   render() {
     const context = this.props.context;
-    let className = 'cell';
+    let className = 'cell mark' + this.state.mark;
     let onClick;
     let value;
-    
+
     if (context.className) {
       className += ' ' + context.className;
     }
@@ -46,10 +52,26 @@ class Cell extends React.Component {
     }
 
     return (
-      <div className={className} onClick={onClick}>
+      <div
+        className={className}
+        onClick={onClick}
+        onContextMenu={(event) => this.handleContextMenu(event)}
+        onMouseEnter={(event) => this.handleMouseEnter(event)}>
+
         {value}
       </div>
     );
+  }
+
+  handleContextMenu(event) {
+    event.preventDefault();
+    this.setState({ mark: 1 - this.state.mark });
+  }
+
+  handleMouseEnter(event) {
+    if (event.button === 2) {
+      this.setState({ mark: 1 - this.state.mark });
+    }
   }
 }
 
