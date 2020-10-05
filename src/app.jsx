@@ -14,6 +14,7 @@ class App extends React.Component {
   constructor(prop) {
     super(prop);
     this.blackbox = new BlackBox();
+    this.peekMode = false;
     this.state = this.createNewState();
   }
 
@@ -31,7 +32,9 @@ class App extends React.Component {
             if (BlackBox.isInBox(x, y)) {
               return {
                 className: 'inner',
-                onClick: () => this.handleClickBox(x, y)
+                mark: 0,
+                onClick: () => this.handleClickBox(x, y),
+                onMark: () => this.handleMarkBox(x, y)
               };
             } else {
               return {
@@ -80,6 +83,12 @@ class App extends React.Component {
         buttons: {
           preset: {
             onClick: (name) => this.handleClickPreset(name)
+          },
+          beginPeek: {
+            onClick: () => this.handleClickPeek(true)
+          },
+          endPeek: {
+            onClick: () => this.handleClickPeek(false)
           }
         }
       }
@@ -112,23 +121,13 @@ class App extends React.Component {
     }
 
     const state = deepcopy(this.state);
-
-    const updateCell = (name, index) => {
-      const cell = state.board.raders[name].cells[index];
-      cell.value = this.blackbox.raderIndex;
-      cell.disabled = true;
-    };
-
-    updateCell(raderName, raderIndex);
+    this.updateRaderCell(state, raderName, raderIndex);
 
     if (result.penetrated) {
-      updateCell(result.name, result.index);
+      this.updateRaderCell(state, result.name, result.index);
     }
 
-    utils.array(state.board.box.cells).forEach2d((x, y, cell) =>
-      cell.value = this.blackbox.getSymbol(x, y)
-    );
-
+    this.updateBoxCells(state);
     this.setState(state);
   }
 
@@ -138,7 +137,18 @@ class App extends React.Component {
     }
 
     const state = deepcopy(this.state);
-    state.board.box.cells[y][x].value = this.blackbox.getSymbol(x, y);
+    this.updateBoxCell(state, x, y);
+    this.setState(state);
+  }
+
+  handleMarkBox(x, y) {
+    if (this.blackbox.isOpened()) {
+      return;
+    }
+
+    const state = deepcopy(this.state);
+    const cell = state.board.box.cells[y][x];
+    cell.mark = 1 - cell.mark;
     this.setState(state);
   }
 
@@ -151,15 +161,7 @@ class App extends React.Component {
     state.board.box.className = 'opened';
     state.board.gameOver = true;
     state.board.score = this.blackbox.score;
-
-    utils.array(state.board.box.cells).forEach2d((x, y, cell) => {
-      if (BlackBox.isInBox(x, y) && this.blackbox.isConjectured(x, y)) {
-        cell.className = "inner conjectured";
-      }
-
-      cell.value = this.blackbox.getSymbol(x, y);
-    });
-
+    this.updateBoxCells(state);
     this.setState(state);
   }
 
@@ -178,6 +180,44 @@ class App extends React.Component {
       .then(response => response.json())
       .then(preset => this.setState(this.createNewState(preset)))
       .catch(error => window.alert(error.message));
+  }
+
+  handleClickPeek(begin) {
+    if (this.blackbox.isOpened()) {
+      return;
+    }
+
+    this.peekMode = begin;
+    const state = deepcopy(this.state);
+    state.board.box.className = begin ? 'peeking' : 'closed';
+    this.updateBoxCells(state);
+    this.setState(state);
+  }
+
+  updateRaderCell(state, raderName, raderIndex) {
+    const cell = state.board.raders[raderName].cells[raderIndex];
+    cell.value = this.blackbox.raderIndex;
+    cell.disabled = true;
+  }
+
+  updateBoxCells(state) {
+    utils.square(BlackBox.REGION).forEach(
+      (x, y) => this.updateBoxCell(state, x, y)
+    );
+  }
+
+  updateBoxCell(state, x, y) {
+    const cell = state.board.box.cells[y][x];
+
+    if (this.blackbox.isOpened() || this.peekMode) { 
+      if (BlackBox.isInBox(x, y)) {
+        cell.className = this.blackbox.isConjectured(x, y) ? "inner conjectured" : "inner";
+      }
+
+      cell.value = this.blackbox.getSymbolWhenOpen(x, y);
+    } else {
+      cell.value = this.blackbox.getSymbol(x, y);
+    }
   }
 }
 

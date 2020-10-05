@@ -168,18 +168,22 @@ export class BlackBox {
 
   getSymbol(x, y) {
     if (this.opened || !BlackBox.isInBox(x, y)) {
-      const value = this.getValue(x, y);
-
-      for (const symbol in constant.cell.value) {
-        if (value === constant.cell.value[symbol]) {
-          return symbol;
-        }
-      }
-
-      return null;
+      return this.getSymbolWhenOpen(x, y);
     } else {
       return this.isConjectured(x, y) ? 'conjecture' : null;
     }
+  }
+
+  getSymbolWhenOpen(x, y) {
+    const value = this.getValue(x, y);
+
+    for (const symbol in constant.cell.value) {
+      if (value === constant.cell.value[symbol]) {
+        return symbol;
+      }
+    }
+
+    return null;
   }
 
   getValue(x, y) {

@@ -23,9 +23,9 @@ export class Board extends React.Component {
           </div>
           <Rader context={context.raders.bottom}/>
         </div>
-        <div className="footer">
+        <p className="footer">
           <button onClick={context.buttons.open.onClick}>Open</button> {result}
-        </div>
+        </p>
       </div>
     );
   }

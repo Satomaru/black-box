@@ -11,9 +11,7 @@ export class Debug extends React.Component {
     const context = this.props.context;
     
     return (
-      <div className="debug">
-        <h2>Debug</h2>
-
+      <p>
         <div>
           <select onChange={(event) => this.preset = event.target.value}>
             <option value="">(choose preset)</option>
@@ -23,7 +21,12 @@ export class Debug extends React.Component {
             Start with preset
           </button>
         </div>
-      </div>
+
+        <div>
+          <button onClick={() => context.buttons.beginPeek.onClick()}>Begin peek</button>
+          <button onClick={() => context.buttons.endPeek.onClick()}>End peek</button>
+        </div>
+      </p>
     );
   }
 }

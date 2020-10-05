@@ -19,6 +19,12 @@ export const utils = {
       } else {
         return line.fill();
       }
+    },
+
+    forEach: (callback) => {
+      for (let i = 0; i < length; i++) {
+        callback(i);
+      }
     }
   }),
 
@@ -33,13 +39,23 @@ export const utils = {
 
         return utils.line(width).make(cellSupplier);
       });
+    },
+
+    forEach: (callback) => {
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          callback(x, y);
+        }
+      }
     }
   }),
 
   square: (size) => ({
     make: (valueOrFunction) => {
       return utils.rect(size, size).make(valueOrFunction);
-    }
+    },
+
+    forEach: (callback) => utils.rect(size, size).forEach(callback)
   }),
 
   random: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min

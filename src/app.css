@@ -2,6 +2,26 @@
   --cell-size: 34px;
 }
 
+/**************************************/
+
+h1 {
+  margin: 0 0 4px 0;
+  font-size: 20pt;
+}
+
+p {
+  margin: 8px 0 0 0;
+  padding: 0;
+  font-size: 11pt;
+  line-height: 16pt;
+}
+
+button, select {
+  font-size: 10pt;
+}
+
+/**************************************/
+
 .app {
   width: 800px;
   height: 640px;
@@ -9,16 +29,6 @@
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-h1 {
-  margin: 0 0 4px 0;
-  font-size: 20pt;
-}
-
-h2 {
-  margin: 0 0 4px 0;
-  font-size: 15pt;
 }
 
 .desk-body::after {
@@ -84,6 +94,14 @@ h2 {
   background-color: #0a0;
 }
 
+.box.peeking .cell.inner {
+  background-color: #bbb;
+}
+
+.box.peeking .cell.inner.conjectured {
+  background-color: #afa;
+}
+
 .box .cell.outer {
   border: 1px solid transparent;
 }
@@ -100,30 +118,8 @@ h2 {
   border-bottom: 1px solid #aaf;
 }
 
-.board .footer {
-  margin-top: 8px;
-  font-size: 11pt;
-  line-height: 16pt;
-}
-
-.board .footer button {
-  font-size: 10pt;
-}
-
 .board .footer .score {
   font-size: 15pt;
   font-weight: bold;
   color: #f00;
-}
-
-.info {
-  margin-top: 8px;
-  font-size: 11pt;
-  line-height: 16pt;
-}
-
-.debug {
-  margin-top: 8px;
-  font-size: 11pt;
-  line-height: 16pt;
 }
