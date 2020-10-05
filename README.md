@@ -20,7 +20,7 @@ New ProjectダイアログのTypeに `Node.js + React.js (Template)` を指定�
 
 ### レーダーの挙動解説
 
-<img src="https://github.com/Satomaru/black-box/blob/master/misc/raders.png" width="400px">
+<img src="https://raw.githubusercontent.com/Satomaru/black-box/master/misc/radars.jpg" width="400px">
 
 1番と2番の照射は、ターゲットに反射して箱の外に貫通するケースです。
 レーダーは、ターゲットの斜めに接触した場合、ターゲットの反対側に屈折します。
