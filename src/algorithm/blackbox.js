@@ -47,23 +47,29 @@ export class BlackBox {
     return Math.floor((100 - loss * 10) * this.hits / BlackBox.TARGETS);
   }
 
-  init() {
+  init(preset) {
     this.conjectures = [];
     this.box = utils.square(BlackBox.REGION).make(0);
     this.raderCount = 0;
     this.hits = 0;
     this.opened = false;
 
-    for (let i = 0; i < BlackBox.TARGETS; i++) {
-      let x;
-      let y;
-
-      do {
-        x = utils.random(1, BlackBox.SIZE);
-        y = utils.random(1, BlackBox.SIZE);
-      } while (this.box[y][x] !== 0);
-
-      this.box[y][x] = constant.cell.value.target;
+    if (preset) {
+      preset.targets.forEach(target =>
+        this.box[target.y][target.x] = constant.cell.value.target
+      );
+    } else {
+      for (let i = 0; i < BlackBox.TARGETS; i++) {
+        let x;
+        let y;
+  
+        do {
+          x = utils.random(1, BlackBox.SIZE);
+          y = utils.random(1, BlackBox.SIZE);
+        } while (this.box[y][x] !== 0);
+  
+        this.box[y][x] = constant.cell.value.target;
+      }
     }
   }
 

@@ -7,6 +7,7 @@ const app = express();
 const port = process.env['REACT_APP_PORT'];
 const config = require('./webpack.config.js');
 const compiler = webpack(config);
+
 const middleware = webpackMiddleware(compiler, {
   publicPath: config.output.publicPath,
   serverSideRender: false,
@@ -16,9 +17,17 @@ const middleware = webpackMiddleware(compiler, {
     ignored: /.*/
   }
 });
+
 app.use(middleware);
+
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname });
+});
+
+app.get('/preset/:name', (req, res) => {
+  const preset = `public/presets/${req.params.name}.json`;
+  console.log('preset requested:', preset);
+  res.sendFile(preset, { root: __dirname });
 });
 
 // Launch app

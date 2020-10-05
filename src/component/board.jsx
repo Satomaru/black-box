@@ -8,6 +8,10 @@ export class Board extends React.Component {
     const context = this.props.context;
     let result;
 
+    if (context.gameOver) {
+      result = <span>ゲーム終了。スコアは<span className="score">{context.score}</span>点です。</span>;
+    }
+
     return (
       <div className="board">
         <div className="desk">
@@ -20,24 +24,7 @@ export class Board extends React.Component {
           <Rader context={context.raders.bottom}/>
         </div>
         <div className="footer">
-          <button onClick={context.buttons.open.onClick}>Open</button>
-
-          { context.info.gameOver &&
-            <span>
-              ゲーム終了。スコアは
-              <span className="score">{context.info.score}</span>
-              点です。
-            </span>
-          }<br/>
-
-          <br/>
-          中央の箱の中には、ターゲットが {context.info.targets} 個隠されています。<br/>
-          ターゲットの位置を予測してタップしてください。<br/>
-          上下左右の領域をタップすると、{context.info.raders} 回までレーダーを照射できます。<br/>
-          マウスを使用している場合、右クリックで色が変わります。<br/>
-          ゲーム上の意味はありませんが、考察に役立ててください。<br/>
-          Open ボタンをタップすると、答え合わせを行います。<br/>
-          再度ゲームを開始する時は、ブラウザをリロードしてください。<br/>
+          <button onClick={context.buttons.open.onClick}>Open</button> {result}
         </div>
       </div>
     );

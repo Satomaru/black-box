@@ -5,6 +5,8 @@ import * as deepcopy from 'deepcopy';
 import './app.css';
 import { BlackBox } from './algorithm/blackbox';
 import { Board } from './component/board.jsx';
+import { Debug } from './component/debug.jsx';
+import { Info } from './component/info.jsx';
 import { utils } from './utils';
 
 class App extends React.Component {
@@ -15,11 +17,14 @@ class App extends React.Component {
     this.state = this.createNewState();
   }
 
-  createNewState() {
-    this.blackbox.init();
+  createNewState(preset) {
+    this.blackbox.init(preset);
 
     return {
+      debugMode: false,
       board: {
+        gameOver: false,
+        score: 0,
         box: {
           className: 'closed',
           cells: utils.square(BlackBox.REGION).make((x, y) => {
@@ -65,22 +70,36 @@ class App extends React.Component {
           open: {
             onClick: () => this.handleClickOpen()
           }
-        },
-        info: {
-          targets: BlackBox.TARGETS,
-          raders: BlackBox.RADERS,
-          gameOver: false,
-          score: 0
+        }
+      },
+      info: {
+        targets: BlackBox.TARGETS,
+        raders: BlackBox.RADERS
+      },
+      debug: {
+        buttons: {
+          preset: {
+            onClick: (name) => this.handleClickPreset(name)
+          }
         }
       }
     };
   }
 
   render() {
+    let bottomPane;
+
+    if (this.state.debugMode) {
+      bottomPane = <Debug context={this.state.debug}/>;
+    } else {
+      bottomPane = <Info context={this.state.info}/>;
+    }
+
     return (
       <div className="app">
-        <h1>Black Box</h1>
+        <h1 onDoubleClick={(event) => this.handleDoubleClickH1(event)}>Black Box</h1>
         <Board context={this.state.board}/>
+        {bottomPane}
       </div>
     );
   }
@@ -130,8 +149,8 @@ class App extends React.Component {
 
     const state = deepcopy(this.state);
     state.board.box.className = 'opened';
-    state.board.info.gameOver = true;
-    state.board.info.score = this.blackbox.score;
+    state.board.gameOver = true;
+    state.board.score = this.blackbox.score;
 
     utils.array(state.board.box.cells).forEach2d((x, y, cell) => {
       if (BlackBox.isInBox(x, y) && this.blackbox.isConjectured(x, y)) {
@@ -142,6 +161,23 @@ class App extends React.Component {
     });
 
     this.setState(state);
+  }
+
+  handleDoubleClickH1(event) {
+    if (event.shiftKey && event.altKey) {
+      this.setState({ debugMode: !this.state.debugMode });
+    }
+  }
+
+  handleClickPreset(name) {
+    if (!name) {
+      return;
+    }
+
+    fetch('/preset/' + name)
+      .then(response => response.json())
+      .then(preset => this.setState(this.createNewState(preset)))
+      .catch(error => window.alert(error.message));
   }
 }
 

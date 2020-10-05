@@ -1,17 +1,17 @@
 import React from 'react';
-import raderV from '../../public/rader_v.png';
-import raderH from '../../public/rader_h.png';
-import raderU from '../../public/rader_u.png';
-import raderR from '../../public/rader_r.png';
-import raderD from '../../public/rader_d.png';
-import raderL from '../../public/rader_l.png';
-import raderUR from '../../public/rader_ur.png';
-import raderUL from '../../public/rader_ul.png';
-import raderDR from '../../public/rader_dr.png';
-import raderDL from '../../public/rader_dl.png';
-import raderCr from '../../public/rader_cr.png';
-import target from '../../public/target.png';
-import conjecture from '../../public/conjecture.png';
+import raderV from '../../public/images/rader_v.png';
+import raderH from '../../public/images/rader_h.png';
+import raderU from '../../public/images/rader_u.png';
+import raderR from '../../public/images/rader_r.png';
+import raderD from '../../public/images/rader_d.png';
+import raderL from '../../public/images/rader_l.png';
+import raderUR from '../../public/images/rader_ur.png';
+import raderUL from '../../public/images/rader_ul.png';
+import raderDR from '../../public/images/rader_dr.png';
+import raderDL from '../../public/images/rader_dl.png';
+import raderCr from '../../public/images/rader_cr.png';
+import target from '../../public/images/target.png';
+import conjecture from '../../public/images/conjecture.png';
 
 class Cell extends React.Component {
 

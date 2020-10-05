@@ -16,6 +16,11 @@ h1 {
   font-size: 20pt;
 }
 
+h2 {
+  margin: 0 0 4px 0;
+  font-size: 15pt;
+}
+
 .desk-body::after {
   clear: both;
   content: "";
@@ -95,18 +100,30 @@ h1 {
   border-bottom: 1px solid #aaf;
 }
 
-.footer {
+.board .footer {
   margin-top: 8px;
   font-size: 11pt;
   line-height: 16pt;
 }
 
-.footer .score {
+.board .footer button {
+  font-size: 10pt;
+}
+
+.board .footer .score {
   font-size: 15pt;
   font-weight: bold;
   color: #f00;
 }
 
-.footer button {
-  font-size: 10pt;
+.info {
+  margin-top: 8px;
+  font-size: 11pt;
+  line-height: 16pt;
+}
+
+.debug {
+  margin-top: 8px;
+  font-size: 11pt;
+  line-height: 16pt;
 }
