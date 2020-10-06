@@ -9,7 +9,7 @@ export class Board extends React.Component {
     let result;
 
     if (context.gameOver) {
-      result = <span>ゲーム終了。スコアは<span className="score">{context.score}</span>点です。</span>;
+      result = <span>ゲーム終了。スコアは<em>{context.score}</em>点です。</span>;
     }
 
     return (
