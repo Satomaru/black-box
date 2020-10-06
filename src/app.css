@@ -100,11 +100,11 @@ button, select {
 }
 
 .box.closed .cell.inner.mark0 {
-  background-color: #668;
+  background-color: #669;
 }
 
 .box.closed .cell.inner.mark1 {
-  background-color: #112;
+  background-color: #223;
 }
 
 .box.opened .cell.inner {

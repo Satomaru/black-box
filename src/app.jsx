@@ -34,7 +34,7 @@ class App extends React.Component {
                 className: 'inner',
                 mark: 0,
                 onClick: () => this.handleClickBox(x, y),
-                onMark: () => this.handleMarkBox(x, y)
+                onMark: (mark) => this.handleMarkBox(x, y, mark)
               };
             } else {
               return {
@@ -141,14 +141,14 @@ class App extends React.Component {
     this.setState(state);
   }
 
-  handleMarkBox(x, y) {
+  handleMarkBox(x, y, mark) {
     if (this.blackbox.isOpened()) {
       return;
     }
 
     const state = deepcopy(this.state);
     const cell = state.board.box.cells[y][x];
-    cell.mark = 1 - cell.mark;
+    cell.mark = mark;
     this.setState(state);
   }
 

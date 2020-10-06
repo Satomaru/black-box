@@ -63,13 +63,18 @@ class Cell extends React.Component {
 
   handleContextMenu(event) {
     event.preventDefault();
-    this.props.context.onMark();
+    this.handleMark(event);
   }
 
   handleMouseEnter(event) {
     if (event.button === 2) {
-      this.props.context.onMark();
+      this.handleMark(event);
     }
+  }
+
+  handleMark(event) {
+    const mark = event.shiftKey ? 0 : 1;
+    this.props.context.onMark(mark);
   }
 }
 
