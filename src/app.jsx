@@ -109,6 +109,7 @@ class App extends React.Component {
       <div className="app">
         <h1 onDoubleClick={(event) => this.handleDoubleClickH1(event)}>Black Box</h1>
         <Board context={this.state.board}/>
+        <hr/>
         {bottomPane}
       </div>
     );

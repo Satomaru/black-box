@@ -42,6 +42,16 @@ button, select {
   font-size: calc(var(--font-size) - 4px);
 }
 
+hr {
+  width: 400px;
+  height: 1px;
+  margin: var(--paragraph-margin) 0 var(--paragraph-margin) 0;
+  border-top: 1px solid #999;
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
 /**************************************/
 
 .app {
