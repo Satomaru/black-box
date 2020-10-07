@@ -18,7 +18,6 @@ class Cell extends React.Component {
   render() {
     const context = this.props.context;
     let className = 'cell';
-    let onClick;
     let value;
 
     if (context.mark !== undefined) {
@@ -27,10 +26,6 @@ class Cell extends React.Component {
 
     if (context.className) {
       className += ' ' + context.className;
-    }
-
-    if (!context.disabled) {
-      onClick = context.onClick;
     }
 
     switch (context.value) {
@@ -52,7 +47,7 @@ class Cell extends React.Component {
     return (
       <div
         className={className}
-        onClick={onClick}
+        onClick={(event) => this.handleClick(event)}
         onContextMenu={(event) => this.handleContextMenu(event)}
         onMouseEnter={(event) => this.handleMouseEnter(event)}>
 
@@ -61,20 +56,32 @@ class Cell extends React.Component {
     );
   }
 
-  handleContextMenu(event) {
-    event.preventDefault();
-    this.handleMark(event);
-  }
-
-  handleMouseEnter(event) {
-    if (event.button === 2) {
-      this.handleMark(event);
+  handleClick(event) {
+    if (!this.props.context.disabled) {
+      this.props.context.onClick();
     }
   }
 
-  handleMark(event) {
-    const mark = event.shiftKey ? 0 : 1;
-    this.props.context.onMark(mark);
+  handleContextMenu(event) {
+    event.preventDefault();
+
+    if (!this.props.context.disabled) {
+      if (event.altKey) {
+        this.props.context.onClearAllMarks();
+      } else {
+        const mark = event.shiftKey ? 0 : 1;
+        this.props.context.onMark(mark);
+      }
+    }
+  }
+
+  handleMouseEnter(event) {
+    if (event.button == 2) {
+      if (!this.props.context.disabled) {
+        const mark = event.shiftKey ? 0 : 1;
+        this.props.context.onMark(mark);
+      }
+    }
   }
 }
 

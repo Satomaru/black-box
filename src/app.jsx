@@ -34,7 +34,8 @@ class App extends React.Component {
                 className: 'inner',
                 mark: 0,
                 onClick: () => this.handleClickBox(x, y),
-                onMark: (mark) => this.handleMarkBox(x, y, mark)
+                onMark: (mark) => this.handleMarkBox(x, y, mark),
+                onClearAllMarks: () => this.handleClearAllMarks()
               };
             } else {
               return {
@@ -147,8 +148,23 @@ class App extends React.Component {
     }
 
     const state = deepcopy(this.state);
-    const cell = state.board.box.cells[y][x];
-    cell.mark = mark;
+    state.board.box.cells[y][x].mark = mark;
+    this.setState(state);
+  }
+
+  handleClearAllMarks() {
+    if (this.blackbox.isOpened()) {
+      return;
+    }
+
+    const state = deepcopy(this.state);
+
+    utils.square(BlackBox.REGION).forEach((x, y) => {
+      if (BlackBox.isInBox(x, y)) {
+        state.board.box.cells[y][x].mark = 0;
+      }
+    });
+
     this.setState(state);
   }
 
